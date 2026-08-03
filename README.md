@@ -9,7 +9,8 @@
 1. GitHub 저장소 생성 후 이 폴더 push
 2. Cloudflare 대시보드 → Workers 및 Pages → 프로젝트명 `bonandgyeol` 생성
 3. GitHub 저장소 → Settings → Secrets and variables → Actions
-   - `CLOUDFLARE_API_TOKEN` (Cloudflare My Profile → API Tokens → Edit Cloudflare Workers 템플릿)
+   - `CLOUDFLARE_API_TOKEN` (Cloudflare My Profile → API Tokens → **Create Custom Token**
+     → 권한: **Account · Cloudflare Pages · Edit** / 계정 리소스: 본인 계정 선택)
    - `CLOUDFLARE_ACCOUNT_ID` (Cloudflare 대시보드 우측 또는 URL에서 확인)
 4. 가비아 네임서버를 Cloudflare 지정 네임서버로 변경
 5. Cloudflare Pages → 사용자 설정 도메인 → bonandgyeol.com 연결

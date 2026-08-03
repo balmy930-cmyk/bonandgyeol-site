@@ -125,9 +125,11 @@
   .role-chips{display:flex;flex-wrap:wrap;gap:8px}
   .role-chips span{font-size:.82rem;background:var(--card);border:1px solid var(--bamboo-soft);border-radius:999px;padding:6px 15px;color:var(--bamboo-deep)}
   .proj-side{display:flex;flex-direction:column}
-  /* 곡 미리듣기 임베드 자리 (나중에 iframe 삽입) */
-  .proj-embed{flex:1;min-height:172px;border:1px dashed var(--border);border-radius:14px;background:var(--card);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--muted);font-size:.85rem}
-  .proj-embed iframe{width:100%;border:0;border-radius:14px;display:block}
+  /* 곡 미리듣기 임베드 (SoundCloud/YouTube · 16:9) */
+  .proj-embed{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--border);border-radius:14px;background:var(--card);overflow:hidden}
+  .proj-embed.is-empty{border-style:dashed}
+  .proj-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .proj-embed .embed-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--muted);font-size:.85rem}
   .proj-apply{margin-top:18px}
   .proj-apply .btn{width:100%}
 
@@ -299,6 +301,8 @@
 <script>
   /* ── 프로젝트 데이터 ───────────────────────────────
      곡을 추가하려면 PROJECTS 배열에 객체를 하나 넣으면 됩니다.
+     파일을 직접 호스팅하지 않습니다 — SoundCloud/YouTube 임베드만 사용합니다.
+
        name    : 프로젝트명
        genre   : 장르
        key     : 키 (예: 'Bm')
@@ -307,8 +311,9 @@
        roles   : 구하는 역할 배열 (예: ['편곡','믹싱','보컬'])
        status  : 표기 문구 (예: '스태프 모집 중')
        state   : 스타일 — 'open'(모집중) | 'soon'(준비중) | 'done'(마감)
-       embed   : 곡 미리듣기 iframe HTML 문자열. 비워두면 자리표시자가 뜹니다.
-                 예) '<iframe src="https://open.spotify.com/embed/..." height="152" allow="encrypted-media"></iframe>'
+       embed   : 곡 미리듣기. 없으면 null — 자리표시자가 대신 뜹니다.
+         { type:'soundcloud', src:'https://w.soundcloud.com/player/?url=<트랙 URL>&color=%235C7348' }
+         { type:'youtube',    src:'https://www.youtube-nocookie.com/embed/<영상 ID>' }
      ──────────────────────────────────────────────── */
   const PROJECTS = [
     {
@@ -320,7 +325,9 @@
       roles: ['편곡', '믹싱', '보컬'],
       status: '스태프 모집 중',
       state: 'open',
-      embed: ''  // 곡 파일 준비되면 여기에 iframe HTML 삽입
+      // 데모 공개 시 아래 형태로 교체 — 예:
+      // embed: { type:'soundcloud', src:'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2FPLACEHOLDER&color=%235C7348' }
+      embed: null
     }
   ];
 
@@ -331,13 +338,23 @@
   }
   function escAttr(s){ return String(s).replace(/"/g,'&quot;'); }
 
+  function embedFrame(p){
+    if (!p.embed || !p.embed.src) {
+      return '<div class="proj-embed is-empty"><span class="embed-ph">곡 미리듣기는 준비 중입니다.<br>공개되면 이 자리에서 바로 들을 수 있습니다.</span></div>';
+    }
+    const title = '미리듣기 — ' + p.name;
+    const allow = p.embed.type === 'youtube'
+      ? 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+      : 'autoplay';
+    return '<div class="proj-embed"><iframe src="' + escAttr(p.embed.src) + '" title="' + escAttr(title) +
+      '" loading="lazy" allow="' + allow + '" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+  }
+
   PROJECTS.forEach(p => {
     const art = document.createElement('article');
     art.className = 'proj reveal';
 
-    const embed = p.embed && p.embed.trim()
-      ? p.embed
-      : '<span>곡 미리듣기는 준비 중입니다.<br>공개되면 이 자리에서 바로 들을 수 있습니다.</span>';
+    const embed = embedFrame(p);
 
     const mailSubject = '플랫폼 스태프 지원 — ' + p.name;
 
@@ -357,7 +374,7 @@
         '</div>' +
       '</div>' +
       '<div class="proj-side">' +
-        '<div class="proj-embed">' + embed + '</div>' +
+        embed +
         '<div class="proj-apply">' +
           '<a class="btn btn-primary" href="mailto:bonandgyeol@gmail.com?subject=' +
             encodeURIComponent(mailSubject) +

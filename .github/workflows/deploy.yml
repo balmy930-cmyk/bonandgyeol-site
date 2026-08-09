@@ -30,6 +30,10 @@ jobs:
             -exec cp {} _site/ \;
           # 이미지 등을 assets 폴더에 두면 통째로 복사됩니다 (없으면 건너뜀)
           if [ -d assets ]; then cp -r assets _site/; fi
+          # Cloudflare Pages 설정 파일 (확장자가 없어 위 목록에 안 걸림)
+          for f in _headers _redirects; do
+            if [ -f "$f" ]; then cp "$f" _site/; fi
+          done
           echo "--- 배포 대상 파일 ---"
           ls -la _site
 

@@ -1,0 +1,47 @@
+# Cloudflare Pages 응답 헤더 설정
+# 형식: 경로 한 줄 → 그 아래 헤더들을 2칸 들여쓰기
+# 문서: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  # MIME 타입 추측 금지 (스크립트로 오인해 실행되는 것 방지)
+  X-Content-Type-Options: nosniff
+
+  # 다른 사이트가 iframe으로 우리 페이지를 감싸는 것 차단 (클릭재킹 방지)
+  X-Frame-Options: DENY
+
+  # 외부 사이트로 이동할 때 전체 경로 대신 도메인만 전달
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # 쓰지 않는 브라우저 기능 차단
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
+
+  # HTTPS 강제 (1년). 서브도메인은 포함하지 않음 — 나중에 추가할 서브도메인이
+  # HTTPS가 아닐 경우 접속이 막히는 것을 피하기 위함.
+  Strict-Transport-Security: max-age=31536000
+
+  # 콘텐츠 보안 정책
+  #  - 기본은 자기 자신만 허용
+  #  - style/font: Google Fonts 허용
+  #  - 'unsafe-inline': 이 사이트는 CSS와 JS를 HTML 안에 직접 넣는 구조라 필요.
+  #    (해시 방식으로 바꾸면 HTML을 수정할 때마다 해시를 다시 계산해야 해서
+  #     손으로 편집하는 이 저장소에는 맞지 않음)
+  #  - img: data: 는 배경 그레인 SVG용
+  #  - frame-src: 곡 미리듣기 임베드 (SoundCloud / YouTube)
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src https://w.soundcloud.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com; upgrade-insecure-requests
+
+# HTML은 항상 최신을 받아오도록 (수정하면 바로 반영)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 잘 바뀌지 않는 파일은 캐시
+/favicon.svg
+  Cache-Control: public, max-age=604800
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400

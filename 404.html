@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>페이지를 찾을 수 없습니다 — 본&결 화원</title>
+<meta name="description" content="요청하신 페이지가 없습니다. 본&결 화원 홈으로 돌아가세요.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#EDEBE3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDEBE3;
+    --card:#F5F3EC;
+    --ink:#22231F;
+    --stone:#3A3C36;
+    --muted:#63615A;
+    --bamboo:#5C7348;
+    --bamboo-deep:#455737;
+    --border:#DDDACE;
+    --serif:'Gowun Batang', serif;
+    --logo:'Cormorant Garamond', serif;
+    --sans:'IBM Plex Sans KR', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--stone);font-family:var(--sans);
+    line-height:1.8;letter-spacing:-0.01em;position:relative;
+    min-height:100vh;display:flex;flex-direction:column;
+  }
+  /* 무광 벽면 그레인 */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+  }
+  a:focus-visible{outline:2px solid var(--bamboo);outline-offset:3px;border-radius:4px}
+
+  main{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:120px 24px 80px;position:relative;z-index:2;
+    background:radial-gradient(ellipse 80% 60% at 50% 40%, #F4F2EA 0%, var(--bg) 62%, #E4E1D8 100%);
+  }
+  .inner{max-width:560px}
+  .code{
+    font-family:var(--logo);font-weight:600;font-size:clamp(3.4rem,12vw,5.5rem);
+    letter-spacing:.14em;color:var(--ink);line-height:1;
+    text-shadow:0 1px 0 rgba(255,255,255,.55), 0 3px 8px rgba(34,35,31,.14);
+  }
+  .rule{width:56px;height:1px;background:var(--bamboo);margin:30px auto;opacity:.55}
+  h1{
+    font-family:var(--serif);font-weight:700;
+    font-size:clamp(1.35rem,3.4vw,1.9rem);line-height:1.55;color:var(--ink);
+  }
+  h1 .accent{color:var(--bamboo)}
+  p.sub{margin-top:20px;font-size:clamp(.93rem,1.6vw,1.02rem);font-weight:300;color:var(--muted)}
+
+  .links{margin-top:44px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+    font-size:.95rem;font-weight:500;padding:0 30px;min-height:52px;border-radius:999px;
+    border:1px solid transparent;transition:background .2s,border-color .2s;
+  }
+  .btn-primary{background:var(--ink);color:var(--card)}
+  .btn-primary:hover{background:var(--bamboo-deep)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border)}
+  .btn-ghost:hover{border-color:var(--ink)}
+
+  .more{margin-top:40px;padding-top:28px;border-top:1px solid var(--border)}
+  .more p{font-size:.82rem;letter-spacing:.16em;color:var(--muted);margin-bottom:12px}
+  .more ul{list-style:none;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+  .more a{
+    font-size:.88rem;color:var(--bamboo-deep);text-decoration:none;
+    min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;
+    transition:background .2s;
+  }
+  .more a:hover{background:#E2DFD4;text-decoration:underline}
+
+  footer{padding:32px 24px 48px;text-align:center;color:var(--muted);font-size:.8rem;position:relative;z-index:2}
+  footer .mark{font-family:var(--logo);letter-spacing:.18em;text-transform:uppercase}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="inner">
+    <p class="code">404</p>
+    <div class="rule"></div>
+    <h1>이 길에는<br><span class="accent">아무것도</span> 자라지 않았습니다</h1>
+    <p class="sub">주소가 바뀌었거나, 없는 페이지입니다.<br>아래에서 찾으시는 곳으로 가실 수 있습니다.</p>
+
+    <div class="links">
+      <a class="btn btn-primary" href="/">홈으로 돌아가기</a>
+      <a class="btn btn-ghost" href="/#contact">문의하기</a>
+    </div>
+
+    <div class="more">
+      <p>바로가기</p>
+      <ul>
+        <li><a href="/#philosophy">철학</a></li>
+        <li><a href="/platform.html">플랫폼</a></li>
+        <li><a href="/curriculum.html">커리큘럼</a></li>
+        <li><a href="/#principles">계약 원칙</a></li>
+        <li><a href="/#care">케어</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span class="mark">© 2026 Bon &amp; Gyeol Hwawon</span>
+</footer>
+
+</body>
+</html>

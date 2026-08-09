@@ -15,9 +15,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 배포할 파일만 _site 폴더에 모읍니다.
+      # 허용목록 방식 — 여기 적힌 확장자만 올라갑니다.
+      # README.md, REPORT.md, DEPLOY.md 같은 내부 문서는 자동으로 제외됩니다.
+      # 새 페이지(.html)를 추가하면 별도 수정 없이 자동 포함됩니다.
+      - name: Stage public files
+        run: |
+          mkdir -p _site
+          find . -maxdepth 1 -type f \
+            \( -name '*.html' -o -name '*.txt' -o -name '*.xml' -o -name '*.json' \
+               -o -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \
+               -o -name '*.svg' -o -name '*.webp' -o -name '*.ico' \
+               -o -name '*.webmanifest' \) \
+            -exec cp {} _site/ \;
+          # 이미지 등을 assets 폴더에 두면 통째로 복사됩니다 (없으면 건너뜀)
+          if [ -d assets ]; then cp -r assets _site/; fi
+          echo "--- 배포 대상 파일 ---"
+          ls -la _site
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=bonandgyeol --commit-dirty=true
+          command: pages deploy _site --project-name=bonandgyeol --branch=main --commit-dirty=true

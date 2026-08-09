@@ -27,7 +27,7 @@
     --card:#F5F3EC;
     --ink:#22231F;
     --stone:#3A3C36;
-    --muted:#6E6C63;
+    --muted:#63615A;
     --bamboo:#5C7348;
     --bamboo-deep:#455737;
     --bamboo-soft:#8FA37C;
@@ -110,7 +110,7 @@
   .track li{font-size:.8rem;background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:6px 14px;color:var(--muted)}
 
   section{padding:110px 0;position:relative;z-index:2}
-  .eyebrow{font-size:.78rem;letter-spacing:.3em;color:var(--bamboo);font-weight:600;margin-bottom:14px}
+  .eyebrow{font-size:.78rem;letter-spacing:.3em;color:var(--bamboo-deep);font-weight:600;margin-bottom:14px}
   h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.45rem,2.8vw,1.9rem);line-height:1.55;margin-bottom:18px}
   h3{font-family:var(--serif);font-weight:700}
   .lead{max-width:600px;font-size:.96rem;color:var(--muted)}
@@ -135,7 +135,7 @@
   .o-card .status{display:inline-block;align-self:flex-start;font-size:.7rem;letter-spacing:.22em;font-weight:600;padding:5px 14px;border-radius:999px;background:var(--bamboo);color:#fff;margin-bottom:18px}
   .o-card h3{font-size:1.35rem;color:#fff;margin-bottom:12px}
   .o-card p{font-size:.92rem;font-weight:300;color:rgba(237,235,227,.8);flex:1}
-  .o-card .detail{margin-top:20px;font-size:.85rem;color:rgba(237,235,227,.55);border-top:1px solid rgba(237,235,227,.14);padding-top:16px;flex:0}
+  .o-card .detail{margin-top:20px;font-size:.85rem;color:rgba(237,235,227,.72);border-top:1px solid rgba(237,235,227,.14);padding-top:16px;flex:0}
   .o-card .o-link{margin-top:20px;align-self:flex-start;font-size:.9rem;font-weight:500;color:var(--bamboo-soft);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
   .o-card .o-link:hover{color:#fff;text-decoration:underline}
   .waitlist{margin-top:48px;background:rgba(237,235,227,.05);border:1px solid rgba(237,235,227,.18);border-radius:20px;padding:44px 36px;text-align:center}
@@ -179,7 +179,7 @@
   .door{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column}
   .door h3{font-size:1.02rem;margin-bottom:8px}
   .door p{font-size:.86rem;font-weight:300;color:var(--muted);flex:1;margin-bottom:16px}
-  .door a{font-size:.85rem;color:var(--bamboo);text-decoration:none;font-weight:500;min-height:36px;display:inline-flex;align-items:center}
+  .door a{font-size:.85rem;color:var(--bamboo-deep);text-decoration:none;font-weight:500;min-height:44px;display:inline-flex;align-items:center}
   .door a:hover{color:var(--bamboo-deep);text-decoration:underline}
   .contact-mail{display:inline-block;font-family:var(--serif);font-size:clamp(1.1rem,2.6vw,1.5rem);color:var(--ink);text-decoration:none;border-bottom:2px solid var(--bamboo);padding:8px 4px;margin-top:40px}
   .contact-mail:hover{color:var(--bamboo-deep)}
@@ -195,6 +195,8 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none}
     html{scroll-behavior:auto}
+    *{transition:none !important;animation:none !important}
+    .p-cell:hover{transform:none}
   }
   @media (max-width:820px){
     .nav-toggle{display:inline-flex;align-items:center}
@@ -441,8 +443,14 @@
 </footer>
 
 <script>
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  /* 스크롤 등장 — 모션 최소화 설정이거나 미지원 브라우저면 즉시 표시 */
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce&&'IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  }else{
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('on'));
+  }
 
   const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
   t.addEventListener('click',()=>{

@@ -76,6 +76,8 @@
 
   .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--card);padding:14px 24px;border-radius:0 0 12px 0;font-size:.9rem;text-decoration:none}
   .skip:focus{left:0}
+  /* 화면에는 안 보이고 스크린리더만 읽는 텍스트 */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
   nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(237,235,227,.92);backdrop-filter:blur(10px)}
   .nav-in{max-width:1020px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -437,7 +439,7 @@
         <div class="door">
           <h3>플랫폼</h3>
           <p>곡을 올리고 스태프를 구하고 싶은 분, 스태프로 참여하고 싶은 분.</p>
-          <a href="mailto:bonandgyeol@gmail.com?subject=플랫폼 대기자 등록">대기자로 등록하기 →</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">대기자로 등록하기 →<span class="sr-only">(새 창에서 열림)</span></a>
         </div>
         <div class="door">
           <h3>커리큘럼</h3>

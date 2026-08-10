@@ -69,6 +69,8 @@
 
   .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--card);padding:14px 24px;border-radius:0 0 12px 0;font-size:.9rem;text-decoration:none}
   .skip:focus{left:0}
+  /* 화면에는 안 보이고 스크린리더만 읽는 텍스트 */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
   nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(237,235,227,.92);backdrop-filter:blur(10px)}
   .nav-in{max-width:1020px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -222,7 +224,7 @@
     <p class="hero-sub">작곡가가 곡을 올리면 편곡·믹싱·보컬·탑라인 스태프가 곡 단위로 모입니다. 참여한 사람의 크레딧은 공식 기록으로 남고, 저작권은 창작자에게 그대로 남습니다.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#projects">진행 중인 프로젝트 보기</a>
-      <a class="btn btn-ghost" href="#submit">곡 올리기</a>
+      <a class="btn btn-ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">곡 올리기<span class="sr-only">(새 창에서 열림)</span></a>
     </div>
   </div>
 </header>
@@ -335,6 +337,10 @@
          { type:'soundcloud', src:'https://w.soundcloud.com/player/?url=<트랙 URL>&color=%235C7348' }
          { type:'youtube',    src:'https://www.youtube-nocookie.com/embed/<영상 ID>' }
      ──────────────────────────────────────────────── */
+  /* 접수 구글폼 — 주소가 바뀌면 이 두 줄만 고치면 됩니다 */
+  const SONG_FORM  = 'https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform'; // 곡 등록
+  const STAFF_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform'; // 스태프 지원
+
   const PROJECTS = [
     {
       name: 'fakeREAL Vol.08 — “neo 아리랑”',
@@ -376,7 +382,6 @@
 
     const embed = embedFrame(p);
 
-    const mailSubject = '플랫폼 스태프 지원 — ' + p.name;
 
     art.innerHTML =
       '<div class="proj-main">' +
@@ -396,10 +401,9 @@
       '<div class="proj-side">' +
         embed +
         '<div class="proj-apply">' +
-          '<a class="btn btn-primary" href="mailto:bonandgyeol@gmail.com?subject=' +
-            encodeURIComponent(mailSubject) +
-            '&body=' + encodeURIComponent('지원 역할:\n포트폴리오 링크:\n간단 소개:\n') +
-          '">이 곡에 지원하기</a>' +
+          '<a class="btn btn-primary" href="' + STAFF_FORM + '" target="_blank" rel="noopener">' +
+            '이 곡에 참여 신청<span class="sr-only">(새 창에서 열림)</span>' +
+          '</a>' +
         '</div>' +
       '</div>';
 

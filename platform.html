@@ -296,7 +296,7 @@
     <h2 class="reveal">한 곡의 팀에<br>참여하시겠어요?</h2>
     <p class="lead reveal">스태프로 지원하거나, 직접 곡을 올릴 수 있습니다. 폼 작성은 몇 분이면 끝납니다.</p>
     <div class="join-grid">
-      <!-- 폼 주소는 아래 script의 SONG_FORM / STAFF_FORM 주석과 같은 값입니다 -->
+      <!-- 폼 주소 변경 시 고쳐야 하는 위치는 README "구글폼 주소" 항목 참고 -->
       <div class="join-card reveal" id="apply-staff">
         <h3>스태프로 지원하기</h3>
         <p>편곡·믹싱·보컬·탑라이너로 곡에 참여하고 싶은 분. 지원 역할과 포트폴리오 링크를 폼에 적어주시면 됩니다.</p>
@@ -338,9 +338,10 @@
          { type:'soundcloud', src:'https://w.soundcloud.com/player/?url=<트랙 URL>&color=%235C7348' }
          { type:'youtube',    src:'https://www.youtube-nocookie.com/embed/<영상 ID>' }
      ──────────────────────────────────────────────── */
-  /* 접수 구글폼 — 주소가 바뀌면 이 두 줄만 고치면 됩니다 */
-  const SONG_FORM  = 'https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform'; // 곡 등록
-  const STAFF_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform'; // 스태프 지원
+  /* 스태프 지원 폼 — 프로젝트 카드 버튼이 이 값을 씁니다.
+     곡 등록 폼(폼 A)은 정적 링크에만 쓰이므로 여기에 두지 않습니다.
+     폼 주소를 바꿀 때 고쳐야 하는 위치는 README의 "구글폼 주소" 항목 참고. */
+  const STAFF_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform';
 
   const PROJECTS = [
     {

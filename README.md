@@ -51,6 +51,25 @@ git push
 
 음원은 직접 호스팅하지 않고 SoundCloud/YouTube 임베드만 사용합니다.
 
+## 구글폼 주소
+
+접수는 구글폼 2종으로 받습니다. 주소를 바꾸면 **아래 위치를 전부** 고쳐야 합니다.
+
+| 폼 | 용도 | 들어간 위치 |
+|---|---|---|
+| A | 곡 등록 | `platform.html` 히어로 「곡 올리기」 · 함께하기 「곡 등록 폼」 · `index.html` 함께하기 플랫폼 door |
+| B | 스태프 지원 | `platform.html` 함께하기 「스태프 지원 폼」 · script의 `STAFF_FORM` 상수 (프로젝트 카드 버튼) |
+
+찾는 법:
+
+```bash
+grep -n "docs.google.com/forms" *.html
+```
+
+폼 링크는 모두 `target="_blank" rel="noopener"` + `.sr-only` "(새 창에서 열림)" 안내를 붙입니다.
+
+> ⚠️ 폼 **편집 URL**(`/forms/d/<id>/edit`)은 이 저장소에 넣지 마세요. 공개 저장소라 링크를 아는 사람이 폼을 수정할 수 있습니다. 저장소에는 응답 URL(`/forms/d/e/<id>/viewform`)만 둡니다.
+
 ## 디자인 규칙
 
 | 항목 | 값 |

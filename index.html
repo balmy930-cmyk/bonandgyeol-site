@@ -198,6 +198,25 @@
   .pill-link{display:inline-flex;align-items:center;background:var(--ink);color:var(--card);text-decoration:none;font-size:.88rem;padding:0 24px;min-height:48px;border-radius:999px;transition:background .2s}
   .pill-link:hover{background:var(--bamboo-deep)}
 
+  /* ── 기록 (영상·게시물) ───────────────────────── */
+  .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:52px}
+  .rec-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;flex-direction:column}
+  /* 임베드 래퍼 — 영상은 16:9, 오디오는 고정 높이 */
+  .embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
+  .embed.is-audio{aspect-ratio:auto;height:166px}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .embed.is-audio iframe{position:static;height:166px}
+  .rec-body{padding:20px 4px 0;display:flex;flex-direction:column;flex:1}
+  .rec-badge{align-self:flex-start;font-size:.68rem;letter-spacing:.18em;font-weight:600;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--muted);margin-bottom:12px}
+  .rec-card h3{font-size:1.08rem;color:var(--ink);line-height:1.5;word-break:keep-all;overflow-wrap:break-word}
+  .rec-card .rec-desc{margin-top:8px;font-size:.9rem;font-weight:300;color:var(--muted);flex:1;word-break:keep-all;overflow-wrap:break-word}
+  /* 링크 카드 (Instagram · X — 외부 위젯 스크립트 미사용) */
+  .rec-link{margin-top:18px;align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ink);color:var(--card);text-decoration:none;font-size:.88rem;font-weight:500;transition:background .2s}
+  .rec-link:hover{background:var(--bamboo-deep)}
+  .rec-card.is-link .rec-body{padding-top:0}
+
+  [hidden]{display:none !important}
+
   .contact-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:70px 40px;text-align:center}
   .contact-card .lead{margin:0 auto}
   .contact-mark{font-family:var(--logo);font-size:1.4rem;letter-spacing:.24em;text-transform:uppercase;color:var(--bamboo);margin-bottom:20px}
@@ -229,7 +248,7 @@
     .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-direction:column;gap:0;padding:8px 16px 16px;display:none}
     .nav-links.open{display:flex}
     .nav-links a{width:100%;border-radius:12px;font-size:.95rem}
-    .track-grid,.dict-grid,.care-grid,.g-grid,.p-grid,.o-grid,.doors{grid-template-columns:1fr}
+    .track-grid,.dict-grid,.care-grid,.g-grid,.p-grid,.o-grid,.doors,.rec-grid{grid-template-columns:1fr}
     header{padding:124px 0 56px}
     section{padding:72px 0}
     .dict{padding:72px 0}
@@ -255,6 +274,8 @@
       <a href="#offline">오프라인</a>
       <a href="#principles">계약 원칙</a>
       <a href="#care">케어</a>
+      <!-- MEDIA 배열이 비어 있으면 JS가 이 링크를 숨깁니다 -->
+      <a href="#record" id="navRecord" hidden>기록</a>
       <a href="#contact">함께하기</a>
     </div>
   </div>
@@ -428,6 +449,17 @@
   </div>
 </section>
 
+<!-- 기록 — 항목은 페이지 하단 script의 MEDIA 배열에서 옵니다.
+     MEDIA가 비어 있으면 이 섹션과 네비 링크가 함께 숨겨집니다. -->
+<section id="record" hidden>
+  <div class="wrap">
+    <p class="eyebrow reveal">기록</p>
+    <h2 class="reveal">만든 것을<br>남겨둡니다</h2>
+    <p class="lead reveal">작업물과 과정을 그때그때 올립니다. 영상·음원은 여기서 바로 보고 들을 수 있습니다.</p>
+    <div class="rec-grid" id="recGrid"></div>
+  </div>
+</section>
+
 <section id="contact">
   <div class="wrap">
     <div class="contact-card reveal">
@@ -469,6 +501,85 @@
 </footer>
 
 <script>
+  /* ── 기록 (MEDIA) ──────────────────────────────────────────────
+     항목을 추가하려면 MEDIA 배열에 객체 하나를 넣으면 됩니다.
+     파일을 직접 호스팅하지 않습니다 — 임베드 또는 링크만 씁니다.
+     배열이 비어 있으면 기록 섹션과 네비 「기록」 링크가 함께 숨겨집니다.
+
+       { kind:'youtube',    id:'VIDEO_ID',    title:'제목', desc:'설명' }
+         └ 주소가 youtu.be/abc123 또는 watch?v=abc123 이면 id는 abc123
+       { kind:'soundcloud', url:'트랙 주소',   title:'제목', desc:'설명' }
+         └ soundcloud.com/계정/트랙 페이지 주소를 그대로 넣으면 됩니다
+       { kind:'instagram',  url:'게시물 주소', title:'제목', desc:'설명' }
+       { kind:'x',          url:'포스트 주소', title:'제목', desc:'설명' }
+
+     youtube·soundcloud는 iframe으로 바로 재생됩니다.
+     instagram·x는 링크 카드로만 보여줍니다 — 외부 위젯 스크립트를 불러오지
+     않습니다(단일 HTML 원칙 유지 + 추적 스크립트 회피).
+     title/desc는 비워도 됩니다. 형식이 맞지 않는 항목은 조용히 건너뜁니다.
+     ───────────────────────────────────────────────────────────── */
+  const MEDIA = [
+    // 예시 — 주석을 풀고 실제 값으로 바꿔 쓰세요:
+    // { kind:'youtube',    id:'VIDEO_ID',                                  title:'Vol.08 “neo 아리랑”', desc:'12/8 굿거리 위에 올린 국악 크로스오버.' },
+    // { kind:'soundcloud', url:'https://soundcloud.com/계정/트랙',           title:'Vol.08 마스터',       desc:'' },
+    // { kind:'instagram',  url:'https://www.instagram.com/p/POST_ID/',      title:'작업 과정',           desc:'' },
+    // { kind:'x',          url:'https://x.com/계정/status/POST_ID',          title:'',                    desc:'' },
+  ];
+
+  (function renderMedia(){
+    const grid = document.getElementById('recGrid');
+    const sec  = document.getElementById('record');
+    const navLink = document.getElementById('navRecord');
+    if (!grid || !sec || !MEDIA.length) return;   // 비어 있으면 숨긴 상태로 둡니다
+
+    const esc = s => String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+    const BADGE = {youtube:'YouTube', soundcloud:'SoundCloud', instagram:'Instagram', x:'X'};
+
+    function frame(src, title, allow, audio){
+      return '<div class="embed' + (audio ? ' is-audio' : '') + '">' +
+        '<iframe src="' + esc(src) + '" title="' + esc(title) + '"' +
+        ' loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
+        ' allow="' + allow + '"' + (audio ? '' : ' allowfullscreen') + '></iframe></div>';
+    }
+    function linkCard(url, label){
+      return '<a class="rec-link" href="' + esc(url) + '" target="_blank" rel="noopener">' +
+        label + '<span class="sr-only">(새 창에서 열림)</span></a>';
+    }
+
+    const html = MEDIA.map(m => {
+      let media = '', link = '', isLink = false;
+
+      if (m.kind === 'youtube' && m.id) {
+        media = frame('https://www.youtube-nocookie.com/embed/' + encodeURIComponent(m.id) + '?rel=0',
+                      m.title || 'YouTube 영상', 'encrypted-media; picture-in-picture', false);
+      } else if (m.kind === 'soundcloud' && m.url) {
+        media = frame('https://w.soundcloud.com/player/?url=' + encodeURIComponent(m.url) + '&color=%235C7348',
+                      m.title || 'SoundCloud 트랙', 'autoplay', true);
+      } else if (m.kind === 'instagram' && m.url) {
+        isLink = true; link = linkCard(m.url, 'Instagram에서 보기 ↗');
+      } else if (m.kind === 'x' && m.url) {
+        isLink = true; link = linkCard(m.url, 'X에서 보기 ↗');
+      } else {
+        return '';
+      }
+
+      const badge = '<span class="rec-badge">' + esc(BADGE[m.kind] || m.kind) + '</span>';
+      const head  = (m.title ? '<h3>' + esc(m.title) + '</h3>' : '') +
+                    (m.desc  ? '<p class="rec-desc">' + esc(m.desc) + '</p>' : '');
+
+      return '<article class="rec-card reveal' + (isLink ? ' is-link' : '') + '">' +
+        media + '<div class="rec-body">' + badge + head + link + '</div></article>';
+    }).join('');
+
+    if (!html) return;            // 유효한 항목이 하나도 없으면 숨긴 상태 유지
+    grid.innerHTML = html;
+    sec.hidden = false;
+    if (navLink) navLink.hidden = false;
+  })();
+
   /* 스크롤 등장 — 모션 최소화 설정이거나 미지원 브라우저면 즉시 표시 */
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduce&&'IntersectionObserver' in window){

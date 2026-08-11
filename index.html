@@ -143,7 +143,8 @@
   h3{font-family:var(--serif);font-weight:700;word-break:keep-all;overflow-wrap:break-word}
   .lead{max-width:600px;font-size:.96rem;color:var(--muted)}
 
-  .dict{padding:90px 0}
+  /* .wrap과 함께 쓰이므로 좌우 24px을 유지해야 함 (.wrap의 padding을 덮어씀) */
+  .dict{padding:90px 24px}
   .dict h2{text-align:center;margin-bottom:44px}
   .dict-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .entry{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px 36px}
@@ -263,7 +264,7 @@
     .track-grid,.dict-grid,.care-grid,.g-grid,.p-grid,.o-grid,.doors,.rec-grid{grid-template-columns:1fr}
     header{padding:124px 0 56px}
     section{padding:72px 0}
-    .dict{padding:72px 0}
+    .dict{padding:72px 24px}
     .tracks{padding:28px 0 72px}
     .contact-card{padding:52px 24px}
     .wordmark{letter-spacing:.14em}

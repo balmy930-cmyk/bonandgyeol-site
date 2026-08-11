@@ -26,8 +26,11 @@
   #    (해시 방식으로 바꾸면 HTML을 수정할 때마다 해시를 다시 계산해야 해서
   #     손으로 편집하는 이 저장소에는 맞지 않음)
   #  - img: data: 는 배경 그레인 SVG용
+  #  - script-src/connect-src에 cloudflareinsights: Cloudflare Web Analytics를
+  #    대시보드에서 켜면 beacon.min.js가 자동 주입된다. 이 두 항목이 없으면
+  #    CSP가 beacon을 차단해 수집이 0건이 된다 (2026-08-11 실측으로 확인)
   #  - frame-src: 곡 미리듣기 임베드 (SoundCloud / YouTube)
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src https://w.soundcloud.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-src https://w.soundcloud.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com; upgrade-insecure-requests
 
 # HTML은 항상 최신을 받아오도록 (수정하면 바로 반영)
 /*.html

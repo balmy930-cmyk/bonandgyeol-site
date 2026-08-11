@@ -201,6 +201,20 @@
     .proj{grid-template-columns:1fr;gap:26px;padding:30px 26px}
   }
 </style>
+
+<noscript>
+  <style>
+    /* JS가 없으면 스크롤 등장 효과 없이 즉시 보이게 (없으면 본문이 opacity:0으로 남음) */
+    .reveal{opacity:1 !important;transform:none !important}
+    /* 모바일 메뉴는 JS 토글에 의존하므로, JS가 없으면 링크를 펼쳐서 노출 */
+    @media (max-width:820px){
+      .nav-toggle{display:none !important}
+      .nav-links{display:flex !important;position:static;flex-direction:row;flex-wrap:wrap;
+                 background:none;border:0;padding:0;gap:2px}
+      .nav-links a{width:auto}
+    }
+  </style>
+</noscript>
 </head>
 <body>
 
@@ -269,6 +283,10 @@
       <p class="lead">역할을 골라 지원하세요.</p>
     </div>
     <div class="proj-grid" id="projGrid"></div>
+    <noscript>
+      <p class="lead">모집 중인 곡 목록은 스크립트로 표시됩니다. 스크립트를 허용하시면 목록이 보입니다.
+        지금 지원하시려면 아래 「지원 · 곡 등록」의 폼을 이용하세요.</p>
+    </noscript>
   </div>
 </section>
 

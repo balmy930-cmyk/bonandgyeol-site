@@ -475,12 +475,12 @@
         <div class="door">
           <h3>곡 등록</h3>
           <p>스태프를 구하는 작곡가.</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only">(새 창에서 열림)</span></a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only"> — 곡 등록 (새 창에서 열림)</span></a>
         </div>
         <div class="door">
           <h3>스태프 지원</h3>
           <p>편곡·믹싱·보컬·탑라인·영상.</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only">(새 창에서 열림)</span></a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only"> — 스태프 지원 (새 창에서 열림)</span></a>
         </div>
         <div class="door">
           <h3>매니지먼트 · 교육</h3>
@@ -601,6 +601,15 @@
   l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
     l.classList.remove('open');t.setAttribute('aria-expanded','false');
   }));
+
+  /* Escape로 모바일 메뉴 닫기 — 포커스를 토글 버튼으로 되돌립니다 */
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape') return;
+    if(!l.classList.contains('open')) return;
+    l.classList.remove('open');
+    t.setAttribute('aria-expanded','false');
+    t.focus();
+  });
 </script>
 </body>
 </html>

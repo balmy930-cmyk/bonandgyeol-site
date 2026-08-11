@@ -285,11 +285,11 @@
       <button type="button" role="tab" id="tab-daw" aria-controls="panel-daw" aria-selected="false" tabindex="-1">DAW 트랙</button>
     </div>
 
-    <div class="track-panel" id="panel-suno" role="tabpanel" aria-labelledby="tab-suno">
+    <div class="track-panel" id="panel-suno" role="tabpanel" aria-labelledby="tab-suno" tabindex="0">
       <h3 class="track-title">Suno 트랙</h3>
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">01</span>
+        <span class="pnum" aria-hidden="true">01</span>
         <h4>생성 기초</h4>
         <span class="prange">1–3주</span>
       </div>
@@ -318,7 +318,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">02</span>
+        <span class="pnum" aria-hidden="true">02</span>
         <h4>곡 만들기</h4>
         <span class="prange">4–6주</span>
       </div>
@@ -347,7 +347,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">03</span>
+        <span class="pnum" aria-hidden="true">03</span>
         <h4>완성도</h4>
         <span class="prange">7–9주</span>
       </div>
@@ -376,7 +376,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">04</span>
+        <span class="pnum" aria-hidden="true">04</span>
         <h4>내보내기</h4>
         <span class="prange">10–12주</span>
       </div>
@@ -404,11 +404,11 @@
     </div>
     </div>
 
-    <div class="track-panel" id="panel-daw" role="tabpanel" aria-labelledby="tab-daw">
+    <div class="track-panel" id="panel-daw" role="tabpanel" aria-labelledby="tab-daw" tabindex="0">
       <h3 class="track-title">DAW 트랙</h3>
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">01</span>
+        <span class="pnum" aria-hidden="true">01</span>
         <h4>기초</h4>
         <span class="prange">1–3주</span>
       </div>
@@ -437,7 +437,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">02</span>
+        <span class="pnum" aria-hidden="true">02</span>
         <h4>곡 만들기</h4>
         <span class="prange">4–6주</span>
       </div>
@@ -466,7 +466,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">03</span>
+        <span class="pnum" aria-hidden="true">03</span>
         <h4>완성도</h4>
         <span class="prange">7–9주</span>
       </div>
@@ -495,7 +495,7 @@
 
     <div class="phase reveal">
       <div class="phase-head">
-        <span class="pnum">04</span>
+        <span class="pnum" aria-hidden="true">04</span>
         <h4>내보내기</h4>
         <span class="prange">10–12주</span>
       </div>
@@ -660,6 +660,15 @@
     a.addEventListener('click',function(){
       l.classList.remove('open'); t.setAttribute('aria-expanded','false');
     });
+
+  /* Escape로 모바일 메뉴 닫기 — 포커스를 토글 버튼으로 되돌립니다 */
+  document.addEventListener('keydown', function(e){
+    if(e.key!=='Escape') return;
+    if(!l.classList.contains('open')) return;
+    l.classList.remove('open');
+    t.setAttribute('aria-expanded','false');
+    t.focus();
+  });
   });
 </script>
 </body>

@@ -182,19 +182,25 @@
   .foot-in a:hover{color:var(--ink)}
   .foot-in .mark{font-family:var(--logo);letter-spacing:.18em;text-transform:uppercase}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.on{opacity:1;transform:none}
+  /* 기본은 보임 — JS가 없으면 이 상태로 남는다 */
+  .reveal{opacity:1;transform:none}
+  /* JS가 있을 때만 등장 효과를 켠다 (html.js는 스크립트 첫 줄에서 붙임) */
+  html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  html.js .reveal.on{opacity:1;transform:none}
 
   @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1;transform:none;transition:none}
+    html.js .reveal{opacity:1;transform:none;transition:none}
     html{scroll-behavior:auto}
     *{transition:none !important;animation:none !important}
   }
   @media (max-width:820px){
-    .nav-toggle{display:inline-flex;align-items:center}
-    .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-direction:column;gap:0;padding:8px 16px 16px;display:none}
-    .nav-links.open{display:flex}
-    .nav-links a{width:100%;border-radius:12px;font-size:.95rem}
+    /* JS가 없으면 링크를 인라인으로 펼쳐 그대로 노출 (토글은 숨김) */
+    .nav-toggle{display:none}
+    .nav-links{display:flex;flex-wrap:wrap;gap:2px}
+    html.js .nav-toggle{display:inline-flex;align-items:center}
+    html.js .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-direction:column;flex-wrap:nowrap;gap:0;padding:8px 16px 16px;display:none}
+    html.js .nav-links.open{display:flex}
+    html.js .nav-links a{width:100%;border-radius:12px;font-size:.95rem}
     header{padding:124px 0 56px}
     section{padding:68px 0}
     .steps,.credit-grid,.join-grid{grid-template-columns:1fr}
@@ -202,19 +208,6 @@
   }
 </style>
 
-<noscript>
-  <style>
-    /* JS가 없으면 스크롤 등장 효과 없이 즉시 보이게 (없으면 본문이 opacity:0으로 남음) */
-    .reveal{opacity:1 !important;transform:none !important}
-    /* 모바일 메뉴는 JS 토글에 의존하므로, JS가 없으면 링크를 펼쳐서 노출 */
-    @media (max-width:820px){
-      .nav-toggle{display:none !important}
-      .nav-links{display:flex !important;position:static;flex-direction:row;flex-wrap:wrap;
-                 background:none;border:0;padding:0;gap:2px}
-      .nav-links a{width:auto}
-    }
-  </style>
-</noscript>
 </head>
 <body>
 
@@ -344,6 +337,9 @@
 </footer>
 
 <script>
+  /* JS 사용 가능 표시 — CSS가 이 클래스로 등장효과·드롭다운을 켠다 */
+  document.documentElement.classList.add('js');
+
   /* ── 프로젝트 데이터 ───────────────────────────────
      곡을 추가하려면 PROJECTS 배열에 객체를 하나 넣으면 됩니다.
      파일을 직접 호스팅하지 않습니다 — SoundCloud/YouTube 임베드만 사용합니다.

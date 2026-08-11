@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>본&결 화원 — 창작자의 본과 결을 지키는 레이블</title>
-<meta name="description" content="심리상담사가 운영하는 창작자 매니지먼트. 온라인 플랫폼·커리큘럼과 오프라인 매니지먼트 2트랙. 매절 없이, 저작권은 창작자에게.">
+<title>본&결 화원 | 작곡가·스태프 곡 단위 매칭 · 창작자 매니지먼트</title>
+<meta name="description" content="작곡가와 편곡·믹싱·보컬 스태프를 곡 단위로 연결합니다. 참여 크레딧 공식 기록, 매절 없는 계약, 12주 교육 과정.">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="본&결 화원 — 창작자의 본과 결을 지키는 레이블">
-<meta property="og:description" content="매절 없는 계약과 케어 시스템을 계약서에 명시하는 창작자 매니지먼트.">
+<meta property="og:title" content="본&결 화원 | 작곡가·스태프 곡 단위 매칭">
+<meta property="og:description" content="작곡가와 편곡·믹싱·보컬 스태프를 곡 단위로 연결합니다. 참여 크레딧 공식 기록, 매절 없는 계약, 12주 교육 과정.">
 <meta property="og:url" content="https://bonandgyeol.com">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="본&결 화원">
 <!-- og:image이 없으므로 summary. 이미지 추가 시 summary_large_image로 되돌릴 것 -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="본&결 화원">
-<meta name="twitter:description" content="매절 없는 계약과 케어 시스템을 계약서에 명시하는 창작자 매니지먼트.">
+<meta name="twitter:title" content="본&결 화원 | 작곡가·스태프 곡 단위 매칭">
+<meta name="twitter:description" content="작곡가와 편곡·믹싱·보컬 스태프를 곡 단위로 연결합니다. 참여 크레딧 공식 기록, 매절 없는 계약, 12주 교육 과정.">
 <meta name="theme-color" content="#EDEBE3">
 <link rel="canonical" href="https://bonandgyeol.com">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -32,8 +32,7 @@
   "alternateName": "Bon & Gyeol Hwawon",
   "url": "https://bonandgyeol.com",
   "email": "bonandgyeol@gmail.com",
-  "description": "심리상담사가 운영하는 창작자 매니지먼트. 온라인 플랫폼·커리큘럼과 오프라인 매니지먼트 2트랙. 매절 없이, 저작권은 창작자에게.",
-  "slogan": "창작자의 본과 결을 지키는 레이블",
+  "description": "작곡가와 편곡·믹싱·보컬 스태프를 곡 단위로 연결하는 창작자 매니지먼트. 참여 크레딧 공식 기록, 매절 없는 계약, 12주 교육 과정.",
   "areaServed": "KR",
   "knowsLanguage": "ko",
   "contactPoint": {
@@ -120,7 +119,9 @@
   }
   h1 .accent{color:var(--bamboo)}
   .hero-sub{margin:24px auto 0;font-size:clamp(.95rem,1.6vw,1.06rem);font-weight:300;color:var(--muted);max-width:560px}
-  .cta-row{margin-top:40px}
+  .cta-row{margin-top:40px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border)}
+  .btn-ghost:hover{border-color:var(--ink)}
   .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:.95rem;font-weight:500;padding:0 32px;min-height:52px;border-radius:999px;transition:background .2s,border-color .2s;border:1px solid transparent}
   .btn-primary{background:var(--ink);color:var(--card)}
   .btn-primary:hover{background:var(--bamboo-deep)}
@@ -291,16 +292,121 @@
     <p class="wordmark">Bon<span class="amp">&amp;</span>Gyeol</p>
     <p class="wordmark-ko">본<span class="ko-accent">결</span></p>
     <div class="rule"></div>
-    <h1>당신은 <span class="accent">권리를 넘기지 않고</span> 곡을 냅니다</h1>
-    <p class="hero-sub">상담심리 석사·면허 상담사가 운영하는 창작자 매니지먼트입니다.<br>매절 없는 계약과 케어 시스템을 계약서에 명시합니다.</p>
+    <h1>작곡가와 스태프를 <span class="accent">곡 단위</span>로 연결합니다</h1>
+    <p class="hero-sub">편곡·믹싱·보컬·영상. 필요한 역할만 골라 모집하세요.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#contact">함께하기</a>
+      <a class="btn btn-primary" href="platform.html">모집 중인 곡 보기</a>
+      <a class="btn btn-ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">곡 등록하기<span class="sr-only">(새 창에서 열림)</span></a>
     </div>
   </div>
 </header>
 
 <main id="main">
 
+<!-- 작동 방식 -->
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow reveal">작동 방식</p>
+    <h2 class="reveal">곡 등록 → 스태프 모집 → 크레딧 기록</h2>
+    <p class="lead reveal">3단계로 끝납니다. 매칭 수수료 0%.</p>
+    <div class="p-grid reveal">
+      <div class="p-cell">
+        <h3>1. 곡 등록</h3>
+        <p>데모와 곡 정보(장르·키·BPM·박자), 구하는 역할을 올립니다. 완성곡이 아니어도 됩니다.</p>
+      </div>
+      <div class="p-cell">
+        <h3>2. 스태프 모집</h3>
+        <p>편곡·믹싱·보컬·탑라인·영상 담당이 역할별로 지원합니다. 포트폴리오를 보고 고릅니다.</p>
+      </div>
+      <div class="p-cell">
+        <h3>3. 크레딧 기록</h3>
+        <p>참여자 전원의 역할과 이름을 곡 단위로 남깁니다.</p>
+      </div>
+    </div>
+    <div class="what-list reveal">
+      <div class="what-item">
+        <a class="what-link" href="platform.html">진행 중인 프로젝트 보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 크레딧 -->
+<section id="credit">
+  <div class="wrap">
+    <p class="eyebrow reveal">크레딧</p>
+    <h2 class="reveal">참여 기록이 남습니다</h2>
+    <p class="lead reveal">누가 어떤 역할을 했는지 곡 단위로 기록. 커리어 자산이 됩니다.</p>
+  </div>
+</section>
+
+<!-- 계약 -->
+<section id="principles">
+  <div class="wrap">
+    <p class="eyebrow reveal">계약</p>
+    <h2 class="reveal">매절 없음 · 저작권 100% 본인</h2>
+    <p class="lead reveal">수수료 10~25%. 회사는 관리와 중개만 합니다.</p>
+    <div class="p-grid reveal">
+      <div class="p-cell">
+        <h3>매절 없음</h3>
+        <p>곡의 권리를 사들이지 않습니다.</p>
+      </div>
+      <div class="p-cell">
+        <h3>저작권 100% 본인</h3>
+        <p>저작권은 창작자 명의로 유지됩니다.</p>
+      </div>
+      <div class="p-cell">
+        <h3>수수료 10~25%</h3>
+        <p>구간과 정산 내역을 계약 전에 공개합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 케어 -->
+<section class="care" id="care">
+  <div class="wrap">
+    <p class="eyebrow reveal">케어</p>
+    <h2 class="reveal">계약서에 명시하는 4가지</h2>
+    <p class="lead reveal">월 1회 세션 · 연 4주 안식 · 실전 6주 상한 · 페르소나 자율</p>
+    <div class="care-grid reveal">
+      <div class="care-item">
+        <h3>월 1회 세션</h3>
+        <p>상담심리 석사·면허 상담사와 1:1로 진행합니다.</p>
+      </div>
+      <div class="care-item">
+        <h3>연 4주 안식</h3>
+        <p>휴식권을 계약 조항으로 보장합니다. 사전 승인이 필요하지 않습니다.</p>
+      </div>
+      <div class="care-item">
+        <h3>실전 6주 상한</h3>
+        <p>고강도 작업 기간을 연속 6주로 제한합니다.</p>
+      </div>
+      <div class="care-item">
+        <h3>페르소나 자율</h3>
+        <p>공개 활동의 노출 범위를 창작자가 정합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 교육 -->
+<section id="education">
+  <div class="wrap">
+    <p class="eyebrow reveal">교육</p>
+    <h2 class="reveal">12주 작곡 과정</h2>
+    <p class="lead reveal">Suno·DAW 2트랙. 곡 완성부터 피칭까지.</p>
+    <div class="what-list reveal">
+      <div class="what-item">
+        <h3>정규 주차에 포함</h3>
+        <p>번아웃(3주차) · 거절 관리(10주차) · 계약 읽기(11주차).</p>
+        <a class="what-link" href="curriculum.html">12주 구성 보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- fakeREAL -->
 <section id="fakereal">
   <div class="wrap">
     <p class="eyebrow reveal">소속 작곡가</p>
@@ -322,123 +428,64 @@
   </div>
 </section>
 
+<!-- 소개 (브랜드 서사 — 하단) -->
 <section class="dict wrap" id="about">
-  <p class="eyebrow reveal" style="text-align:center">본과 결</p>
-  <h2>당신이 왜 쓰는지가 먼저입니다</h2>
+  <p class="eyebrow reveal" style="text-align:center">소개</p>
+  <h2>이름의 뜻</h2>
   <div class="dict-grid">
     <div class="entry reveal">
       <p><span class="word">본</span><span class="hanja">本</span></p>
       <p class="pos">명사</p>
-      <p class="def">사물이나 사람의 <b>바탕이 되는 뿌리.</b> 창작자가 왜 쓰는지, 무엇을 지키고 싶은지 — 흔들리지 않아야 하는 것.</p>
+      <p class="def">바탕이 되는 근거. 창작자가 왜 쓰는지, 무엇을 지키려는지.</p>
     </div>
     <div class="entry reveal">
       <p><span class="word">결</span></p>
       <p class="pos">명사</p>
-      <p class="def">나무나 살갗에 남는 <b>고유한 무늬와 흐름.</b> 같은 장르를 써도 사람마다 다르게 남는 것 — 지워지면 안 되는 것.</p>
+      <p class="def">같은 장르를 써도 사람마다 다르게 남는 방식.</p>
     </div>
   </div>
   <p class="dict-close reveal">이 두 가지를 기준으로<br>계약과 케어를 설계했습니다.</p>
-</section>
 
-<section class="what" id="what">
-  <div class="wrap">
-    <p class="eyebrow reveal">하는 일</p>
-    <h2 class="reveal">당신은 소속 없이도 시작할 수 있습니다</h2>
-    <p class="lead reveal">계약은 선택지 중 하나입니다. 소속되지 않은 상태에서도 쓸 수 있는 것을 먼저 준비하고 있습니다.</p>
-
-    <div class="what-list reveal">
-      <div class="what-item">
-        <h3>곡 단위로 팀을 구합니다</h3>
-        <p>곡을 올리면 편곡·믹싱·보컬·탑라인 스태프가 그 곡에 지원합니다. 참여한 사람의 역할과 이름은 공식 크레딧으로 남습니다. 1단계는 음악이고, 이후 시나리오·웹툰으로 넓힐 계획입니다.</p>
-        <a class="what-link" href="platform.html">플랫폼 자세히 보기 →</a>
-      </div>
-      <div class="what-item">
-        <h3>곡을 끝내는 법을 배웁니다</h3>
-        <p>12주 과정입니다. 도구 사용법이 아니라 시작한 곡을 끝내고 남에게 넘기는 과정을 다룹니다. 번아웃·거절 관리·계약 읽기가 특강이 아니라 정규 주차에 들어갑니다.</p>
-        <a class="what-link" href="curriculum.html">12주 구성 보기 →</a>
-      </div>
-      <div class="what-item">
-        <h3>계약하면 전 과정을 맡습니다</h3>
-        <p>작곡가 디비전 &lsquo;화원&rsquo;이 데모 피칭, 계약·정산 관리, 케어까지 담당합니다. 매절 없이 저작권은 창작자에게 남습니다. 퍼포머 디비전 &lsquo;화랑&rsquo;은 화원이 자리를 잡은 뒤에 엽니다.</p>
-      </div>
+  <div class="what-list reveal">
+    <div class="what-item">
+      <h3>디비전</h3>
+      <p>작곡가 디비전 &lsquo;화원&rsquo;이 데모 피칭, 계약·정산 관리, 케어를 담당합니다. 퍼포머 디비전 &lsquo;화랑&rsquo;은 개설 예정입니다.</p>
+    </div>
+    <div class="what-item">
+      <h3>운영</h3>
+      <p>상담심리 석사·면허 상담사가 운영합니다.</p>
     </div>
   </div>
 </section>
 
-<section id="principles">
-  <div class="wrap">
-    <p class="eyebrow reveal">계약 원칙</p>
-    <h2 class="reveal">당신은 저작권을<br>그대로 가집니다</h2>
-    <div class="p-grid reveal">
-      <div class="p-cell">
-        <h3>매절 없음</h3>
-        <p>곡의 권리를 사들이지 않습니다. 히트의 결실은 그 곡을 쓴 사람에게 돌아갑니다.</p>
-      </div>
-      <div class="p-cell">
-        <h3>저작권 크루 귀속</h3>
-        <p>모든 저작권은 창작자 본인에게 남습니다. 회사는 관리와 기회를 맡습니다.</p>
-      </div>
-      <div class="p-cell">
-        <h3>투명한 정산</h3>
-        <p>수수료 구조와 정산 내역을 처음부터 공개합니다. 계약서에 없는 조건은 없습니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="care" id="care">
-  <div class="wrap">
-    <p class="eyebrow reveal">케어 시스템</p>
-    <h2 class="reveal">당신은 소진되지 않고<br>계속 쓸 수 있습니다</h2>
-    <p class="lead reveal">상담심리 석사·면허 상담사가 설계한 네 가지 안전장치를 계약서에 명시합니다. 번아웃은 의지보다 구조에서 생긴다고 보기 때문입니다.</p>
-    <div class="care-grid reveal">
-      <div class="care-item">
-        <h3>정기 세션</h3>
-        <p>정해진 주기의 1:1 세션으로 작업과 마음의 상태를 함께 점검합니다.</p>
-      </div>
-      <div class="care-item">
-        <h3>안식 권리</h3>
-        <p>쉬는 것은 허락받는 일이 아닙니다. 휴식권을 계약 조항으로 보장합니다.</p>
-      </div>
-      <div class="care-item">
-        <h3>모드 전환</h3>
-        <p>평소엔 놀이처럼, 실전엔 싸움처럼. 창작과 회복의 리듬을 설계합니다.</p>
-      </div>
-      <div class="care-item">
-        <h3>페르소나 진정성</h3>
-        <p>보여지는 모습과 실제의 나 사이가 벌어지지 않도록, 공개 활동을 함께 설계합니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- 함께하기 -->
 <section id="contact">
   <div class="wrap">
     <div class="contact-card reveal">
       <p class="contact-mark">Bon &amp; Gyeol</p>
-      <h2>당신은 어느 쪽이든<br>바로 연락할 수 있습니다</h2>
-      <p class="lead">모든 메일을 대표가 직접 읽습니다. 정해진 양식은 없습니다.</p>
+      <h2>지원 · 문의</h2>
+      <p class="lead">해당하는 곳으로 보내주세요.</p>
 
       <div class="doors">
         <div class="door">
-          <h3>플랫폼</h3>
-          <p>곡을 올리고 스태프를 구하고 싶은 분, 스태프로 참여하고 싶은 분.</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">대기자로 등록하기 →<span class="sr-only">(새 창에서 열림)</span></a>
+          <h3>곡 등록</h3>
+          <p>스태프를 구하는 작곡가.</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSffYrWL37AMx82euydZZuClUMJQOp9Ig8m-vwIp9KMDHwF-eg/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only">(새 창에서 열림)</span></a>
         </div>
         <div class="door">
-          <h3>커리큘럼</h3>
-          <p>12주 과정 1기 소식을 먼저 받고 싶은 분.</p>
-          <a href="mailto:bonandgyeol@gmail.com?subject=커리큘럼 1기 대기자 등록&body=현재 작업 단계(입문·독학 중·데모 있음 등):%0A가장 막히는 지점:%0A연락받을 방법:%0A">대기자로 등록하기 →</a>
+          <h3>스태프 지원</h3>
+          <p>편곡·믹싱·보컬·탑라인·영상.</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf5jOAXLwFlTjukkFqm8ooT2w7fB0Pwr6ko_aBguAYm5GtsWA/viewform" target="_blank" rel="noopener">폼 작성 →<span class="sr-only">(새 창에서 열림)</span></a>
         </div>
         <div class="door">
-          <h3>매니지먼트</h3>
-          <p>작곡가·프로듀서·탑라이너로 소속을 논의하고 싶은 분.</p>
-          <a href="mailto:bonandgyeol@gmail.com?subject=매니지먼트 문의&body=역할(작곡·프로듀싱·탑라인 등):%0A데모 링크(비공개 가능):%0A활동 이력:%0A하고 싶은 이야기:%0A">데모와 함께 연락하기 →</a>
+          <h3>매니지먼트 · 교육</h3>
+          <p>소속 논의, 12주 과정 1기 대기.</p>
+          <a href="mailto:bonandgyeol@gmail.com?subject=매니지먼트 · 교육 문의&body=구분(매니지먼트 / 교육 1기 대기):%0A역할(작곡·프로듀싱·탑라인 등):%0A데모 링크(비공개 가능):%0A연락받을 방법:%0A">메일 보내기 →</a>
         </div>
       </div>
 
       <a class="contact-mail" href="mailto:bonandgyeol@gmail.com">bonandgyeol@gmail.com</a>
-      <p class="contact-note">폼이 어려우시면 메일도 괜찮습니다. 모든 메일은 대표가 직접 읽습니다.</p>
+      <p class="contact-note">대표가 직접 확인합니다.</p>
     </div>
   </div>
 </section>

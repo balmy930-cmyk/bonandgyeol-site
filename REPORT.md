@@ -117,7 +117,8 @@ platform(320/1440)·curriculum(320) 동일 기준 통과. 커리큘럼 트랙 �
 | sitemap.xml Content-Type | `application/xml` |
 | sitemap 내 `<script>` | **0개** |
 | 주입 조건 | `text/html` 응답에만 적용 → **XML 오염 없음** |
-| 단, HTML에는 주입됨 | beacon.min.js 확인 → CSP가 차단하고 있었음 (수정 완료) |
+| 단, HTML에는 주입됨 | beacon.min.js 확인 → CSP가 차단하고 있었음 |
+| **수정 후 재검증** | 배포 반영 확인 → 콘솔 오류 0건, beacon 실행, **RUM 전송 요청 1건 발생** = 수집 복구 |
 
 > curl에는 beacon이 주입되지 않습니다. 브라우저 요청에만 붙어서, curl 기반 점검만으로는 놓치는 종류의 문제였습니다.
 
@@ -156,10 +157,10 @@ platform(320/1440)·curriculum(320) 동일 기준 통과. 커리큘럼 트랙 �
 
 | 파일 | 크기 |
 |---|---|
-| index.html | 32.6KB |
-| platform.html | 23.1KB |
-| curriculum.html | 30.6KB |
-| 404.html | 5.0KB |
+| index.html | 31.7KB |
+| platform.html | 22.0KB |
+| curriculum.html | 28.8KB |
+| 404.html | 4.9KB |
 
 ---
 
@@ -181,5 +182,5 @@ platform(320/1440)·curriculum(320) 동일 기준 통과. 커리큘럼 트랙 �
 | # | 항목 | 선행 조건 |
 |---|---|---|
 | 1 | Lighthouse 4개 지표 측정 | PSI API 키 또는 Node |
-| 2 | Analytics 수집 정상화 확인 | 배포 반영 후 대시보드에서 데이터 유입 확인 |
+| 2 | Analytics 대시보드 데이터 유입 확인 | RUM 전송은 확인됨. 대시보드 집계까지 확인 필요 |
 | 3 | MEDIA 항목 입력 | fakeREAL 영상·트랙 주소 |

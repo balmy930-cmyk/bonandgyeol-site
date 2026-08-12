@@ -102,7 +102,8 @@ curl -sI https://bonandgyeol.com/sitemap.xml | head -1
 | 스크립트 주입·CSP 차단 | **브라우저 콘솔** — curl로는 안 보입니다 |
 | 링크·앵커 | 전수 스크립트 (확장자 없는 경로 해석 포함) |
 | 접근성 | `tools/a11y-check.js` → `__a11y()`. axe는 node가 없어 사용 불가 |
-| **검사기 자체 신뢰도** | **`tests/a11y-fixture.html`에서 `__a11y({expect:true})`. 탐지율 100% · 오탐 0이어야 합니다** |
+| HTML 유효성 | `python tools/html-check.py .` W3C validator를 쓸 수 없어 자체 구현 |
+| **검사기 자체 신뢰도** | **`tests/a11y-fixture.html`에서 `__a11y({expect:true})`. 탐지율 100% · 오탐 0이어야 합니다**<br>HTML 검사기는 `python tools/html-check.py .` 로 픽스처의 `unquoted-attr`를 잡고 실제 페이지는 통과해야 합니다 |
 | **JS 비활성 회귀** | **`tools/jsoff-check.js` → `__jsoff()`. 3페이지 모두 "통과"여야 합니다** |
 | 반응형 | 320 / 640 / 768 / 1440px 계산값 |
 | 텍스트 간격 | line-height 1.5 / letter-spacing .12em / word-spacing .16em 강제 |

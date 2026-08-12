@@ -33,6 +33,7 @@
   /* 위반: 클릭 영역 44px 미만 */
   .tiny-link{display:inline-block;height:20px;line-height:20px;font-size:12px}
   .tiny-btn{height:24px;padding:0 8px;font-size:12px}
+  .btn-32{display:inline-flex;align-items:center;height:32px;padding:0 12px;font-size:13px}
   /* 정상: 44px 이상 */
   .ok-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px}
 
@@ -145,6 +146,24 @@
   </div>
   <div id="p1" role="tabpanel" aria-labelledby="t1" tabindex="0">패널 1</div>
   <div id="p2" role="tabpanel" aria-labelledby="t2" tabindex="0" hidden>패널 2</div>
+</section>
+
+
+<section>
+  <h2>11. 추가 케이스</h2>
+
+  <!-- 위반: 32px 클릭 타깃 (기준 44px) -->
+  <a href="#none" class="btn-32" data-expect="target-size">32px 링크</a>
+  <button type="button" class="btn-32" data-expect="target-size">32px 버튼</button>
+
+  <!-- 위반: tablist 밖의 독립 버튼에 tabindex="-1" (로빙 패턴 아님) -->
+  <button type="button" class="ok-btn" tabindex="-1" data-expect="keyboard-unreachable">탭 순서에서 빠진 버튼</button>
+
+  <!-- 위반: 인용 없는 속성값 — HTML 검사기가 잡아야 함 -->
+  <p class=unquoted data-expect-html="unquoted-attr">class 값에 인용부호가 없습니다</p>
+
+  <!-- 정상: 인용 안쪽에 = 가 있는 경우 (오탐 유발 케이스) -->
+  <meta name="test-viewport" content="width=device-width, initial-scale=1.0">
 </section>
 
 </body>

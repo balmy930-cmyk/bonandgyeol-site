@@ -32,17 +32,31 @@
   #  - frame-src: 곡 미리듣기 임베드 (SoundCloud / YouTube)
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-src https://w.soundcloud.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com; upgrade-insecure-requests
 
-# HTML은 항상 최신을 받아오도록 (수정하면 바로 반영)
+# ── 캐시 정책 ─────────────────────────────────────────────
+# HTML: 배포 즉시 반영이 최우선이므로 짧게 둡니다.
+#   Cloudflare Pages 기본값도 max-age=0, must-revalidate 이므로 사실상 기본과 같습니다.
+#   엣지 캐싱(CDN-Cache-Control / s-maxage)을 켜면 배포 후에도 옛 페이지가 남을 수 있고,
+#   Cloudflare 문서도 커스텀 도메인에서의 커스텀 캐싱을 권장하지 않습니다.
+#   → cf-cache-status가 DYNAMIC으로 나오는 것은 의도된 결과입니다.
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /
   Cache-Control: public, max-age=0, must-revalidate
 
-# 잘 바뀌지 않는 파일은 캐시
-/favicon.svg
-  Cache-Control: public, max-age=604800
+# 내용이 거의 바뀌지 않는 자산: 30일.
+#   immutable은 붙이지 않습니다 — 붙이면 max-age 동안 재검증 자체를 건너뛰어
+#   교체했을 때 되돌릴 방법이 purge밖에 없어집니다.
+#   og.png / favicon.svg를 교체하면 Cloudflare 대시보드에서 purge 하거나
+#   파일명을 바꿔야 합니다.
+/og.png
+  Cache-Control: public, max-age=2592000
 
+/favicon.svg
+  Cache-Control: public, max-age=2592000
+
+# 크롤러가 읽는 파일: 하루.
+#   sitemap은 lastmod가 바뀌면 빨리 반영되는 편이 나아 길게 잡지 않습니다.
 /robots.txt
   Cache-Control: public, max-age=86400
 

@@ -539,10 +539,19 @@
      ───────────────────────────────────────────────────────────── */
   /* 작업 과정 — 한 곡이 완성되기까지의 기록 */
   const MEDIA_PROCESS = [
+    { kind:'youtube', url:'https://youtu.be/Mu1y0gxQWWo', title:'REAL게토 — 믹스 전', desc:'스템 분리 후 재구성' },
+    { kind:'youtube', url:'https://youtu.be/tzx_UaJkP3E', title:'REAL게토 — 중간',    desc:'재생성으로 방향 잡기' },
+    { kind:'youtube', url:'https://youtu.be/k3NDe6h0oGU', title:'REAL게토 — 초안',    desc:'다중 생성과 선별' },
   ];
 
   /* 발매곡 */
   const MEDIA_RELEASE = [
+    { kind:'youtube', url:'https://youtu.be/IV7pJ9Wb6CE', title:'진짜 힙합 D.N.A야',      desc:'fakeREAL Vol.06 · 100 BPM' },
+    { kind:'youtube', url:'https://youtu.be/Mw9FPI8tTXQ', title:'Different Man',          desc:'fakeREAL Vol.05 · 108 BPM' },
+    { kind:'youtube', url:'https://youtu.be/rUnxRPJkwt8', title:'마지막 인사',            desc:'fakeREAL Vol.04' },
+    { kind:'youtube', url:'https://youtu.be/u42LF5l-j_M', title:'Sour Candy',             desc:'fakeREAL Vol.03' },
+    { kind:'youtube', url:'https://youtu.be/j0YgqYc7DbQ', title:'한 걸음 뒤에서',          desc:'fakeREAL Vol.02' },
+    { kind:'youtube', url:'https://youtu.be/ra9YBTV1aXE', title:'Weird And Freak, Fake',  desc:'fakeREAL Vol.01' },
   ];
 
   (function renderMedia(){
@@ -557,9 +566,12 @@
     // 깨진 링크·임베드가 나가지 않습니다.
     const urlOk = (u) => typeof u === 'string' && /^https:\/\/[^\s"']+$/.test(u);
 
-    function linkCard(url, label){
+    // 같은 문구의 링크가 여러 개이므로 sr-only에 제목을 넣어 목적지를 구분합니다.
+    // 보이는 문구는 그대로라 WCAG 2.5.3(Label in Name)도 충족합니다.
+    function linkCard(url, label, title){
+      const ctx = title ? ' — ' + esc(title) : '';
       return '<a class="rec-link" href="' + esc(url) + '" target="_blank" rel="noopener">' +
-        label + '<span class="sr-only">(새 창에서 열림)</span></a>';
+        label + '<span class="sr-only">' + ctx + ' (새 창에서 열림)</span></a>';
     }
     function audioFrame(url, title){
       return '<div class="embed is-audio">' +
@@ -575,7 +587,7 @@
       if (m.kind === 'soundcloud') {
         media = audioFrame(m.url, m.title || 'SoundCloud 트랙');
       } else if (LABEL[m.kind]) {
-        isLink = true; link = linkCard(m.url, LABEL[m.kind]);
+        isLink = true; link = linkCard(m.url, LABEL[m.kind], m.title);
       } else {
         return '';
       }

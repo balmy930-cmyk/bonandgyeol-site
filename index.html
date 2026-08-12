@@ -533,11 +533,15 @@
      title/desc는 비워도 됩니다. 형식이 맞지 않는 항목은 조용히 건너뜁니다.
      ───────────────────────────────────────────────────────────── */
   const MEDIA = [
-    // 예시 — 주석을 풀고 실제 값으로 바꿔 쓰세요:
-    // { kind:'youtube',    id:'VIDEO_ID',                                  title:'Vol.08 “neo 아리랑”', desc:'12/8 굿거리 위에 올린 국악 크로스오버.' },
-    // { kind:'soundcloud', url:'https://soundcloud.com/계정/트랙',           title:'Vol.08 마스터',       desc:'' },
-    // { kind:'instagram',  url:'https://www.instagram.com/p/POST_ID/',      title:'작업 과정',           desc:'' },
-    // { kind:'x',          url:'https://x.com/계정/status/POST_ID',          title:'',                    desc:'' },
+    // ⚠️ id는 아직 자리표시자입니다. YouTube 주소의 11자 ID로 바꿔야 표시됩니다.
+    //    youtu.be/AbCdEfGhIjK        → 'AbCdEfGhIjK'
+    //    youtube.com/watch?v=AbCdEfGhIjK → 'AbCdEfGhIjK'
+    //    형식이 맞지 않는 항목은 렌더에서 건너뛰므로, 지금은 기록 블록이 숨겨진 상태입니다.
+    { kind:'youtube', id:'TODO-8-12', title:'REAL게토 프로젝트 — 중간 ver', desc:'' },
+    { kind:'youtube', id:'TODO-8-10', title:'REAL게토 프로젝트 — 초안 ver', desc:'' },
+    { kind:'youtube', id:'TODO-7-01', title:'한 걸음 뒤에서',                desc:'fakeREAL Vol.02' },
+    { kind:'youtube', id:'TODO-6-29', title:'Weird And Freak, Fake',        desc:'fakeREAL Vol.01' },
+    { kind:'youtube', id:'TODO-6-16', title:'진짜 힙합 D.N.A야',            desc:'fakeREAL Vol.06' },
   ];
 
   (function renderMedia(){
@@ -566,7 +570,11 @@
     const html = MEDIA.map(m => {
       let media = '', link = '', isLink = false;
 
-      if (m.kind === 'youtube' && m.id) {
+      // YouTube ID는 11자([A-Za-z0-9_-]). 형식이 아니면 건너뜁니다 —
+      // 자리표시자를 넣어둔 채로 배포해도 깨진 플레이어가 뜨지 않게 합니다.
+      const ytOk = (id) => typeof id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(id);
+
+      if (m.kind === 'youtube' && ytOk(m.id)) {
         media = frame('https://www.youtube-nocookie.com/embed/' + encodeURIComponent(m.id) + '?rel=0',
                       m.title || 'YouTube 영상', 'encrypted-media; picture-in-picture', false);
       } else if (m.kind === 'soundcloud' && m.url) {

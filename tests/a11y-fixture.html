@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>검사기 테스트 픽스처 — 의도적 위반 모음</title>
+<meta name="robots" content="noindex">
+<!--
+  이 파일은 자체 검사기가 위반을 실제로 잡는지 확인하는 테스트용입니다.
+  배포되지 않습니다 (워크플로가 루트 파일만 복사).
+
+  각 위반에는 data-expect="규칙ID" 를 붙였습니다.
+  검사기가 그 규칙으로 해당 요소를 잡아내야 통과입니다.
+
+  기대 위반 목록 (총 12건):
+    contrast x2 / target-size x2 / form-label x2 / img-alt x1
+    duplicate-id x1 / heading-order x1 / keyboard-unreachable x2 / link-name x1
+-->
+<style>
+  body{background:#EDEBE3;color:#3A3C36;font-family:sans-serif;margin:0;padding:24px;line-height:1.8}
+  h1{font-size:2rem}
+  section{margin:32px 0;padding:20px;border:1px solid #DDDACE;background:#F5F3EC}
+  code{background:#E2DFD4;padding:2px 6px;border-radius:4px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* 위반: 대비 미달 — #A8A49A on #EDEBE3 ≈ 2.0:1 (기준 4.5) */
+  .bad-contrast{color:#A8A49A;font-size:16px}
+  /* 위반: 대비 미달 — 큰 텍스트인데 기준 3.0 미달 (#C4C0B6 ≈ 1.5:1) */
+  .bad-contrast-large{color:#C4C0B6;font-size:28px;font-weight:700}
+  /* 정상: 대비 충분 (#22231F on #F5F3EC ≈ 14:1) */
+  .ok-contrast{color:#22231F}
+
+  /* 위반: 클릭 영역 44px 미만 */
+  .tiny-link{display:inline-block;height:20px;line-height:20px;font-size:12px}
+  .tiny-btn{height:24px;padding:0 8px;font-size:12px}
+  /* 정상: 44px 이상 */
+  .ok-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px}
+
+  /* 위반: 키보드 도달 불가 — div에 클릭 핸들러만 */
+  .fake-button{display:inline-block;background:#22231F;color:#EDEBE3;padding:12px 20px;cursor:pointer;border-radius:8px}
+  /* 위반: 인터랙티브 요소에 tabindex="-1" */
+  .unreachable{display:inline-block;min-height:44px}
+</style>
+</head>
+<body>
+
+<h1>검사기 테스트 픽스처</h1>
+<p class="ok-contrast">아래 요소들은 <strong>의도적으로</strong> 접근성 규칙을 위반합니다. 자체 검사기가 이것들을 잡아내야 합니다.</p>
+
+<section>
+  <h2>1. 명도 대비</h2>
+  <p class="bad-contrast" data-expect="contrast">본문 크기인데 대비가 약 2.0:1 입니다. (기준 4.5)</p>
+  <p class="bad-contrast-large" data-expect="contrast">큰 텍스트 1.5:1 (기준 3.0)</p>
+  <p class="ok-contrast">이 문장은 대비가 충분하므로 잡히면 안 됩니다.</p>
+</section>
+
+<section>
+  <h2>2. 클릭 영역</h2>
+  <a href="#none" class="tiny-link" data-expect="target-size">20px 높이 링크</a>
+  <button type="button" class="tiny-btn" data-expect="target-size">24px 버튼</button>
+  <a href="#none" class="ok-btn">44px 링크 (잡히면 안 됨)</a>
+</section>
+
+<section>
+  <h2>3. 폼 라벨</h2>
+  <input type="text" name="noLabel" placeholder="라벨 없음" data-expect="form-label">
+  <select name="noLabelSelect" data-expect="form-label">
+    <option>선택</option>
+  </select>
+  <label for="okInput">정상 라벨</label>
+  <input type="text" id="okInput" name="ok">
+</section>
+
+<section>
+  <h2>4. 이미지 대체텍스트</h2>
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%235C7348'/%3E%3C/svg%3E" data-expect="img-alt">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%2322231F'/%3E%3C/svg%3E" alt="정상 대체텍스트">
+</section>
+
+<section>
+  <h2>5. 중복 id</h2>
+  <p id="dupId" data-expect="duplicate-id">첫 번째 dupId</p>
+  <p id="dupId">두 번째 dupId</p>
+</section>
+
+<section>
+  <h2>6. 헤딩 레벨 건너뜀</h2>
+  <h4 data-expect="heading-order">h2 다음에 h4가 왔습니다 (h3 건너뜀)</h4>
+</section>
+
+<section>
+  <h2>7. 키보드 도달</h2>
+  <div class="fake-button" onclick="void 0" data-expect="keyboard-unreachable">div에 클릭 핸들러만 (Tab 도달 불가)</div>
+  <a href="#none" class="unreachable" tabindex="-1" data-expect="keyboard-unreachable">tabindex=-1 링크</a>
+</section>
+
+<section>
+  <h2>8. 링크 이름</h2>
+  <a href="#none" data-expect="link-name"><span aria-hidden="true">→</span></a>
+  <a href="#none">정상 링크 문구</a>
+</section>
+
+
+<section>
+  <h2>9. 잡으면 안 되는 것 (음성 케이스)</h2>
+
+  <!-- sr-only: 화면에 안 보이지만 스크린리더용. 대비·크기 검사 대상 아님 -->
+  <a href="#none" class="ok-btn" data-expect-none="target-size,contrast">
+    폼 작성<span class="sr-only"> — 곡 등록 (새 창에서 열림)</span>
+  </a>
+
+  <!-- hidden 컨테이너 안의 요소: 탭 순서에서 빠지므로 위반 아님 -->
+  <div hidden>
+    <a href="#none" class="tiny-link" data-expect-none="target-size">숨겨진 작은 링크</a>
+    <input type="text" name="hiddenNoLabel" data-expect-none="form-label">
+  </div>
+
+  <!-- 장식용 SVG: aria-hidden 이면 이름 없어도 됨 -->
+  <svg width="20" height="20" aria-hidden="true" data-expect-none="svg-name"><rect width="20" height="20" fill="#5C7348"/></svg>
+
+  <!-- role=button + tabindex=0 : 키보드 도달 가능하므로 위반 아님 -->
+  <div role="button" tabindex="0" class="ok-btn" onclick="void 0" data-expect-none="keyboard-unreachable">정상 커스텀 버튼</div>
+
+  <!-- 같은 문구지만 목적지가 같음: 모호하지 않음 -->
+  <a href="#same" data-expect-none="ambiguous-link-text" class="ok-btn">같은 곳</a>
+  <a href="#same" class="ok-btn">같은 곳</a>
+</section>
+
+
+<section>
+  <h2>10. 맥락 없는 링크 문구 / 로빙 탭인덱스</h2>
+
+  <!-- 위반: 링크 문구만으로 목적지를 알 수 없음 -->
+  <a href="#none" class="ok-btn" data-expect="vague-link-text">자세히 보기</a>
+  <a href="#none" class="ok-btn" data-expect="vague-link-text">더보기 →</a>
+
+  <!-- 정상: sr-only로 맥락이 보강된 경우 -->
+  <a href="#none" class="ok-btn" data-expect-none="vague-link-text">자세히 보기<span class="sr-only"> — 12주 커리큘럼</span></a>
+
+  <!-- 정상: 로빙 탭인덱스 (비활성 탭의 tabindex=-1은 ARIA 표준) -->
+  <div role="tablist" aria-label="테스트 탭">
+    <button role="tab" id="t1" aria-controls="p1" aria-selected="true" class="ok-btn">탭 1</button>
+    <button role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1" class="ok-btn"
+            data-expect-none="keyboard-unreachable">탭 2</button>
+  </div>
+  <div id="p1" role="tabpanel" aria-labelledby="t1" tabindex="0">패널 1</div>
+  <div id="p2" role="tabpanel" aria-labelledby="t2" tabindex="0" hidden>패널 2</div>
+</section>
+
+</body>
+</html>
